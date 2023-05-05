@@ -88,10 +88,13 @@
                 <executions>
                     <execution>
                         <id>copy-dependencies</id>
-                        <phase>prepare-package</phase>
+                        <phase>compile</phase>
                         <goals>
                             <goal>copy-dependencies</goal>
                         </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -104,6 +107,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib</classpathPrefix>
                             <mainClass>org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader</mainClass>
                         </manifest>
                         <manifestEntries>
@@ -123,8 +127,13 @@
                     </excludes>
                 </configuration>
             </plugin>
-
         </plugins>
+
+        <resources>
+            <resource>
+                <directory>${project.build.outputDirectory}/lib</directory>
+            </resource>
+        </resources>
     </build>
 
 </project>
