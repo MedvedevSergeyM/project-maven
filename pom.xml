@@ -88,12 +88,12 @@
                 <executions>
                     <execution>
                         <id>copy-dependencies</id>
-                        <phase>compile</phase>
+                        <phase>generate-resources</phase>
                         <goals>
                             <goal>copy-dependencies</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                            <includeScope>compile</includeScope>
                         </configuration>
                     </execution>
                 </executions>
@@ -107,11 +107,12 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <classpathPrefix>lib</classpathPrefix>
+                            <classpathPrefix>lib/</classpathPrefix>
                             <mainClass>org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader</mainClass>
                         </manifest>
                         <manifestEntries>
                             <Rsrc-Main-Class>com.javarush.games.racer.RacerGame</Rsrc-Main-Class>
+                            <Class-Path>./</Class-Path>
                         </manifestEntries>
                     </archive>
                 </configuration>
@@ -131,7 +132,8 @@
 
         <resources>
             <resource>
-                <directory>${project.build.outputDirectory}/lib</directory>
+                <directory>${project.build.directory}/dependency</directory>
+                <targetPath>lib/</targetPath>
             </resource>
         </resources>
     </build>
